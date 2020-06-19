@@ -20,5 +20,6 @@ type Card struct {
 	CardholderName string //имя и фамилия держателя карты
 	Balance int64 //доступный баланс карты
 	Currency string //валюта карточного счета
+	Transactions []Transaction
 }
 
