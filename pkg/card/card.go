@@ -1,6 +1,8 @@
 package card
 
-import "time"
+import (
+	"time"
+)
 
 type Transaction struct {
 	Id int64 // id-карты
@@ -10,7 +12,6 @@ type Transaction struct {
 	Description string //описание операции
 	Status string //текущий статус операции
 	MccCode string //код точки продаж по каталогу Merchant Category Code
-	MccType string //тип точки продаж
 }
 
 type Card struct {
@@ -26,10 +27,14 @@ type Card struct {
 	Transactions []Transaction
 }
 
+
+//Функция добавления новой транзакции в историю операций по карте
 func AddTransaction(card *Card, transaction *Transaction) {
 	card.Transactions = append(card.Transactions, *transaction)
 }
 
+
+//Функция суммирования операций по набору кодов MCC
 func SumByMCC(transactions []Transaction, mcc []string) int64 {
 	var totalSum int64 = 0
 
@@ -40,8 +45,21 @@ func SumByMCC(transactions []Transaction, mcc []string) int64 {
 				totalSum += myTransaction.Amount
 			}
 		}
-
 	}
-
 	return totalSum
+}
+
+
+//Функция определения категории точки POS  по категории МСС
+func TranslateMCC(code string) string {
+	// Справочник MCC-кодов
+	mcc := map[string]string{
+		"5411": "Супермаркеты",
+		"6539": "Фондирование операций",
+		"5812": "Рестораны и точки питания",
+		"5942": "Книжные магазины",
+		"5993": "Магазины сигар",
+	}
+	value, _ := mcc[code]
+	return value
 }
