@@ -88,7 +88,7 @@ func main() {
 		DateTime: transactionDateTime,
 		Description: "Gipermarket",
 		Status:  "Операция в обработке",
-		MccCode: "5411",
+		MccCode: "5400",
 	}
 	card.AddTransaction(myCard, newTransaction)
 
@@ -102,7 +102,7 @@ func main() {
 
 
 	//Демо функции - определение категории торговой точки по MСС-коду транзакции
-	transactionNumber := 1
+	transactionNumber := 4
 	category := card.TranslateMCC(myCard.Transactions[transactionNumber].MccCode) //
 	fmt.Printf("Транзакция № %d имеет категорию торговой точки: %s \n", transactionNumber, category)
 

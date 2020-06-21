@@ -51,6 +51,8 @@ func SumByMCC(transactions []Transaction, mcc []string) int64 {
 
 
 //Функция определения категории точки POS  по категории МСС
+const mccFindError = "Категория не указана"
+
 func TranslateMCC(code string) string {
 	// Справочник MCC-кодов
 	mcc := map[string]string{
@@ -60,6 +62,11 @@ func TranslateMCC(code string) string {
 		"5942": "Книжные магазины",
 		"5993": "Магазины сигар",
 	}
-	value, _ := mcc[code]
-	return value
+	value, ok := mcc[code]
+	if ok {
+		return value
+	} else {
+		return mccFindError
+	}
+
 }
