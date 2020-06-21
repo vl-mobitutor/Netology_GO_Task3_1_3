@@ -1,6 +1,8 @@
 package card
 
-import "time"
+import (
+	"time"
+)
 
 type Transaction struct {
 	Id int64 // id-карты
@@ -40,8 +42,25 @@ func SumByMCC(transactions []Transaction, mcc []string) int64 {
 				totalSum += myTransaction.Amount
 			}
 		}
+	}
+	return totalSum
+}
 
+
+//Функция выборки последних N транзакций
+func LastNTransactions(card *Card, n int) []Transaction {
+	var (
+		lastTransactions []Transaction
+		sliceLength int
+	)
+
+	sliceLength = len(card.Transactions)
+	if n > sliceLength {
+		n = sliceLength
 	}
 
-	return totalSum
+	for i := 1; i <= n; i++ {
+		lastTransactions = append(lastTransactions, card.Transactions[sliceLength - i])
+	}
+	return lastTransactions
 }

@@ -103,5 +103,13 @@ func main() {
 	//СУММИРОВАНИЕ ПО КОДУ МСС
 	selectCodes := []string{"5411"}
 	totalSum :=card.SumByMCC(myCard.Transactions, selectCodes)
-	fmt.Printf("Общая сумма операций по кодам МСС: %s составила %d копеек", selectCodes, totalSum)
+	fmt.Printf("Общая сумма операций по кодам МСС: %s составила %d копеек \n", selectCodes, totalSum)
+
+
+	//Демо функции выборки последних N транзакций
+	transactionNumber := 3
+	card.LastNTransactions(myCard, transactionNumber)
+	myLastTransacions := card.LastNTransactions(myCard, transactionNumber )
+	fmt.Printf("Последние %d транзакций по карте:  \n",  len(myLastTransacions))
+	fmt.Println(myLastTransacions)
 }
