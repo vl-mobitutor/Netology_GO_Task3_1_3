@@ -50,6 +50,25 @@ func SumByMCC(transactions []Transaction, mcc []string) int64 {
 }
 
 
+//Функция выборки последних N транзакций
+func LastNTransactions(card *Card, n int) []Transaction {
+	var (
+		lastTransactions []Transaction
+		sliceLength int
+	)
+
+	sliceLength = len(card.Transactions)
+	if n > sliceLength {
+		n = sliceLength
+	}
+
+	for i := 1; i <= n; i++ {
+		lastTransactions = append(lastTransactions, card.Transactions[sliceLength - i])
+	}
+	return lastTransactions
+}
+
+
 //Функция определения категории точки POS  по категории МСС
 const mccFindError = "Категория не указана"
 
@@ -68,5 +87,4 @@ func TranslateMCC(code string) string {
 	} else {
 		return mccFindError
 	}
-
 }
