@@ -37,7 +37,6 @@ func main() {
 				Description: "Gipermarket",
 				Status:  "Операция в обработке",
 				MccCode: "5411",
-				MccType: "Супермаркеты",
 			},
 
 			{
@@ -48,7 +47,6 @@ func main() {
 				Description: "Пополнение через Сбербанк",
 				Status:  "Обработана",
 				MccCode: "6539",
-				MccType: "Пополнение операций",
 			},
 
 			{
@@ -59,7 +57,6 @@ func main() {
 				Description: "Gastrobar",
 				Status:  "Обработана",
 				MccCode: "5812",
-				MccType: "Рестораны и точки питания",
 			},
 
 		},	//конец массива транзакций
@@ -81,19 +78,17 @@ func main() {
 		Description: "Gipermarket",
 		Status:  "Операция в обработке",
 		MccCode: "5411",
-		MccType: "Супермаркеты",
 	}
 	card.AddTransaction(myCard, newTransaction)
 
 	newTransaction = &card.Transaction{
-		Id: 1004,
+		Id: 1005,
 		Amount:  -2000_00,
 		Currency: "RUR",
 		DateTime: transactionDateTime,
 		Description: "Gipermarket",
 		Status:  "Операция в обработке",
-		MccCode: "5411",
-		MccType: "Супермаркеты",
+		MccCode: "5400",
 	}
 	card.AddTransaction(myCard, newTransaction)
 
@@ -103,6 +98,7 @@ func main() {
 	//СУММИРОВАНИЕ ПО КОДУ МСС
 	selectCodes := []string{"5411"}
 	totalSum :=card.SumByMCC(myCard.Transactions, selectCodes)
+
 	fmt.Printf("Общая сумма операций по кодам МСС: %s составила %d копеек \n", selectCodes, totalSum)
 
 
@@ -112,4 +108,14 @@ func main() {
 	myLastTransacions := card.LastNTransactions(myCard, transactionNumber )
 	fmt.Printf("Последние %d транзакций по карте:  \n",  len(myLastTransacions))
 	fmt.Println(myLastTransacions)
+
+	fmt.Printf("Общая сумма операций по кодам МСС: %s - составила %d копеек \n", selectCodes,totalSum)
+
+
+	//Демо функции - определение категории торговой точки по MСС-коду транзакции
+	transactionNumber := 4
+	category := card.TranslateMCC(myCard.Transactions[transactionNumber].MccCode) //
+	fmt.Printf("Транзакция № %d имеет категорию торговой точки: %s \n", transactionNumber, category)
+
+
 }
